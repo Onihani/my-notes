@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1059993649749",
+    "firebase_url": "https://skyry-39c85.firebaseio.com",
+    "project_id": "skyry-39c85",
+    "storage_bucket": "skyry-39c85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059993649749:android:07ccb1a40bca509e6b8adc",
+        "android_client_info": {
+          "package_name": "com.firstapporg.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059993649749-7v5aqjt796ealchp5ja5l73mvnfk5kpm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1lsjscnJClxTGp6kmtk4bxRQvpn3kDDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059993649749-7v5aqjt796ealchp5ja5l73mvnfk5kpm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

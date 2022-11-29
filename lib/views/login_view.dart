@@ -1,3 +1,5 @@
+// dart
+import 'dart:developer' as devtools show log;
 // marterial ui
 import 'package:flutter/material.dart';
 // firebase auth
@@ -39,17 +41,24 @@ class _LoginViewState extends State<LoginView> {
           .signInWithEmailAndPassword(email: email, password: password);
 
       // print user info
-      print(loggedUserCredentials);
+      devtools.log(loggedUserCredentials.toString());
+
+      // push notes view
+      if (!mounted) return;
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/notes/',
+        (route) => false,
+      );
     } on FirebaseAuthException catch (firebaseAuthError) {
       switch (firebaseAuthError.code) {
         case 'user-not-found':
-          print("Invalid email or password");
+          devtools.log("Invalid email or password");
           break;
         case 'wrong-password':
-          print("Invalid credentials provided");
+          devtools.log("Invalid credentials provided");
           break;
         default:
-          print("An error occured while authenticating");
+          devtools.log("An error occured while authenticating");
       }
     }
   }
@@ -84,8 +93,10 @@ class _LoginViewState extends State<LoginView> {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/register/', (route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/register/',
+                (route) => false,
+              );
             },
             child: const Text('Not registered yet? Register here!'),
           )

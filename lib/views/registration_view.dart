@@ -1,3 +1,5 @@
+// dart
+import 'dart:developer' as devtools show log;
 // marterial ui
 import 'package:flutter/material.dart';
 // firebase auth
@@ -39,22 +41,22 @@ class _RegisterViewState extends State<RegisterView> {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       // print user info
-      print(createdUserCredentials);
+      devtools.log(createdUserCredentials.toString());
     } on FirebaseAuthException catch (firebaseAuthError) {
       switch (firebaseAuthError.code) {
         case 'weak-password':
-          print(
+          devtools.log(
               "Password should be at least 8 characters long.\nPassword should have at least one symbol or number");
           break;
         case 'email-already-in-use':
-          print(
+          devtools.log(
               "There is an existing account associated with this email. Please login instead.");
           break;
         case 'invalid-email':
-          print('Please enter a valid email address');
+          devtools.log('Please enter a valid email address');
           break;
         default:
-          print("An error occured while registering");
+          devtools.log("An error occured while registering");
       }
     }
   }
@@ -87,8 +89,10 @@ class _RegisterViewState extends State<RegisterView> {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/login/', (route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/login/',
+                (route) => false,
+              );
             },
             child: const Text('Already having an account? Login here!'),
           )

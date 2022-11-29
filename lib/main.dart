@@ -12,6 +12,8 @@ import 'firebase_options.dart';
 import 'package:mynotes/views/login_view.dart';
 // Registration View
 import 'package:mynotes/views/registration_view.dart';
+// Verify Email View
+import 'package:mynotes/views/verify_email_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,10 @@ void main() {
       primarySwatch: Colors.blue,
     ),
     home: const HomePage(),
+    routes: {
+      '/login/': (context) => const LoginView(),
+      '/register/': (context) => const RegisterView(),
+    },
   ));
 }
 
@@ -30,30 +36,33 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home Page')),
-      body: FutureBuilder(
-        // initialize firebase
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              final user = FirebaseAuth.instance.currentUser;
+    return FutureBuilder(
+      // initialize firebase
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            final user = FirebaseAuth.instance.currentUser;
+
+            if (user != null) {
               final userEmailVerified = user?.emailVerified ?? false;
 
               if (userEmailVerified) {
-                print('You are verified user');
+                print('Email is virified');
               } else {
-                print('You need to verify your email first');
+                return const VerifyEmailView();
               }
-              return const Text('Done');
-            default:
-              return const Text("Loading...");
-          }
-        },
-      ),
+            } else {
+              return const LoginView();
+            }
+
+            return const Text('Done');
+          default:
+            return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }
